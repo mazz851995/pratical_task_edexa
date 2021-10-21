@@ -15,12 +15,6 @@ const Home = () => {
     const [serachString, setSerachString] = useState("")
 
 
-    // const logout = () => {
-    //     dispatch({ type: "LOGOUT" })
-    //     history.push("/login");
-    //     toast.success("Logged Out Successfully..!!");
-    // }
-
     const handleDelete = (id) => {
         if (window.confirm("Are you sure want to delete user?")) {
             dispatch({ type: "DELETE_USER", payload: id })
@@ -29,9 +23,12 @@ const Home = () => {
     }
 
     useEffect(() => {
+        if (!signedInUser) {
+            history.push("/");
+        }
         const getUsers = users.filter(user => user.fname.toLowerCase().match(serachString) || user.email.toLowerCase().match(serachString));
         setSearchdata(getUsers)
-    }, [dispatch, history, toast, users, serachString])
+    }, [dispatch, history, toast, users, serachString, signedInUser])
 
 
     const handleSearch = (e) => {

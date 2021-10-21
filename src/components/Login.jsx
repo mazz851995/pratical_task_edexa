@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { toast } from "react-toastify"
@@ -12,6 +12,8 @@ const Login = () => {
     const history = useHistory()
 
     const users = useSelector(state => state.userReducer)
+
+    const user = users.find(user => user.isSignedIn == true);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,6 +33,11 @@ const Login = () => {
         history.push("/home");
         toast.success("Logged In Successfully..!!");
     }
+    useEffect(() => {
+        if (user) {
+            history.push("/home");
+        }
+    }, [dispatch, history, user])
     return (
         <div className='container'>
             <h2 className="text-center" >Login in</h2>

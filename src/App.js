@@ -8,8 +8,9 @@ import Home from './components/Home';
 import Login from './components/Login';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import ProtectedRoute from './protectedRoute';
 import EditUser from './components/EditUser';
+import Error from './components/Error';
+
 
 
 function App() {
@@ -25,11 +26,10 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={() => <Signup />} />
-          {/* <ProtectedRoute exact path="/home" component={Home} /> */}
           <Route exact path="/home" component={() => <Home />} />
           <Route exact path="/edit/:id" component={() => <EditUser />} />
           <Route exact path="/login" component={() => <Login />} />
-          <Route component="404 Not found" />
+          <Route component={() => <Error />} />
         </Switch>
       </Router>
     </>

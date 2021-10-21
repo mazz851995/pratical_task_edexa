@@ -4,17 +4,19 @@ import { Redirect, Route } from "react-router-dom";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
     const users = useSelector((state) => state.userReducer);
-    // console.log(users);
     const user = users.find(user => user.isSignedIn == true);
+    if (user != undefined) {
+        console.log(Object.keys(user).length > 0);
+    }
     return (
         <>
             <Route
                 {...rest}
                 render={(props) => {
-                    if (!user) {
-                        return <Redirect to="/login" />;
-                    }
                     return <Component {...props} />;
+                    if (user && Object.keys(user).length > 0) {
+                    } else
+                        return <Redirect to="/login" />;
                 }}
             />
         </>

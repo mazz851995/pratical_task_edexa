@@ -16,6 +16,8 @@ const Signup = () => {
 
     const users = useSelector(state => state.userReducer)
 
+    const user = users.find(user => user.isSignedIn == true);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         let { email, password, fname, address, proPic, dob } = postData;
@@ -39,8 +41,10 @@ const Signup = () => {
     }
 
     useEffect(() => {
-
-    }, [dispatch, history])
+        if (user) {
+            history.push("/home");
+        }
+    }, [dispatch, history, user])
 
     return (
         <div className="container">

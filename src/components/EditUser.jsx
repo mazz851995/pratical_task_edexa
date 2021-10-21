@@ -14,7 +14,7 @@ const EditUser = () => {
     const ref = useRef();
     const history = useHistory()
     const users = useSelector(state => state.userReducer)
-
+    const signedInUser = users.find(user => user.isSignedIn == true);
 
     const dispatch = useDispatch()
 
@@ -32,6 +32,10 @@ const EditUser = () => {
 
 
     useEffect(() => {
+        if (!signedInUser) {
+            history.push("/");
+        }
+
         setpostData({
             ...initialFormData,
             email: userDetail ? userDetail.email : "",
